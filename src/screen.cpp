@@ -10,7 +10,7 @@
     All rights reserved. Use of this source code is governed by a
     BSD-style license that can be found in the LICENSE.txt file.
 */
-
+#include <GL/glew.h>
 #include <nanogui/screen.h>
 #include <nanogui/theme.h>
 #include <nanogui/opengl.h>
@@ -27,9 +27,9 @@ NAMESPACE_BEGIN(nanogui)
 
 std::map<GLFWwindow *, Screen *> __nanogui_screens;
 
-#if defined(_WIN32)
+//#if defined(_WIN32)
 static bool glewInitialized = false;
-#endif
+//#endif
 
 Screen::Screen()
     : Widget(nullptr), mGLFWWindow(nullptr), mNVGContext(nullptr),
@@ -47,6 +47,8 @@ Screen::Screen(const Vector2i &size, const std::string &caption,
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
+    //glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Request a RGBA8 buffer without MSAA */
@@ -75,7 +77,7 @@ Screen::Screen(const Vector2i &size, const std::string &caption,
 
     glfwMakeContextCurrent(mGLFWWindow);
 
-#if defined(_WIN32)
+//#if defined(_WIN32)
     if (!glewInitialized) {
         glewExperimental = GL_TRUE;
         glewInitialized = true;
@@ -83,7 +85,7 @@ Screen::Screen(const Vector2i &size, const std::string &caption,
             throw std::runtime_error("Could not initialize GLEW!");
         glGetError(); // pull and ignore unhandled errors like GL_INVALID_ENUM
     }
-#endif
+//#endif
 
     glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
     glViewport(0, 0, mFBSize[0], mFBSize[1]);

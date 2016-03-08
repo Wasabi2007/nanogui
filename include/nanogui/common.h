@@ -237,7 +237,7 @@ extern NANOGUI_EXPORT void chdir_to_bundle_parent();
  */
 extern NANOGUI_EXPORT std::array<char, 8> utf8(int c);
 
-/// Load a directory of PNG images and upload them to the GPU (suitable for use with ImagePanel)
+/// Load a directory of PNG _ocluder_images and upload them to the GPU (suitable for use with ImagePanel)
 extern NANOGUI_EXPORT std::vector<std::pair<int, std::string>>
     loadImageDirectory(NVGcontext *ctx, const std::string &path);
 
